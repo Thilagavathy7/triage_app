@@ -65,12 +65,18 @@ with tab1:
     rows = [{"Name": p[2], "Age": p[3], "Complaint": p[4],
              "Severity": SEVERITY[p[0]], "Arrival #": p[1], "Arrived": p[5]}
             for p in heap.sorted_view()]
-    st.dataframe(rows, use_container_width=True) if rows else st.info("Queue is empty.")
+    if rows:
+        st.dataframe(rows, use_container_width=True)
+    else:
+        st.info("Queue is empty.")
 
     st.subheader("Treated patients")
     done = [{"Order": i + 1, "Name": p[2], "Severity": SEVERITY[p[0]]}
             for i, p in enumerate(st.session_state.treated)]
-    st.dataframe(done, use_container_width=True) if done else st.write("None yet.")
+    if done:
+        st.dataframe(done, use_container_width=True)
+    else:
+        st.write("None yet.")
 
 # ---------- Tab 2: show the raw heap array ----------
 with tab2:
@@ -79,7 +85,10 @@ with tab2:
     internals = [{"Index": i, "Name": p[2], "Severity": p[0], "Arrival #": p[1],
                   "Parent index": str((i - 1) // 2) if i else "-"}
                  for i, p in enumerate(heap.data)]
-    st.dataframe(internals, use_container_width=True) if internals else st.info("Heap is empty.")
+    if internals:
+        st.dataframe(internals, use_container_width=True)
+    else:
+        st.info("Heap is empty.")
     st.caption("Notice: index 0 (the root) is always the most urgent patient. "
                "The rest is only partially ordered - that is what makes a heap fast.")
 
