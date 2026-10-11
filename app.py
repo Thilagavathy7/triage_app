@@ -77,7 +77,7 @@ with tab2:
     st.write("The heap is stored as a **list**. For index `i`: parent = `(i-1)//2`, "
              "left child = `2i+1`, right child = `2i+2`.")
     internals = [{"Index": i, "Name": p[2], "Severity": p[0], "Arrival #": p[1],
-                  "Parent index": (i - 1) // 2 if i else "-"}
+                  "Parent index": str((i - 1) // 2) if i else "-"}
                  for i, p in enumerate(heap.data)]
     st.dataframe(internals, use_container_width=True) if internals else st.info("Heap is empty.")
     st.caption("Notice: index 0 (the root) is always the most urgent patient. "
